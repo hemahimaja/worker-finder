@@ -16,7 +16,7 @@
     </div>
   </nav>
 
-  <div class="hero-section d-flex flex-column align-items-center justify-content-center text-center text-white">
+  <div class="hero-section d-flex flex-column align-items-center justify-content-center text-center text-white" style="height: 100vh; background: #007bff;">
     <div>
       <h1 class="mb-4">Find Skilled Workers in Andhra Pradesh</h1>
       <p class="lead">Select your city to get started</p>
@@ -40,7 +40,7 @@
         <option value="machilipatnam">Machilipatnam</option>
       </select>
 
-      <a href="workers.html" class="btn btn-success">See All Workers</a>
+      <a href="workers.html?place=all" class="btn btn-success">See All Workers</a>
     </div>
   </div>
 
@@ -48,10 +48,9 @@
     function goToWorkersPage() {
       const city = document.getElementById("locationSelect").value;
       if (city) {
-        window.location.href = `workers.html?city=${city}`;
+        window.location.href = `workers.html?place=${city}`;
       }
     }
   </script>
 </body>
 </html>
-

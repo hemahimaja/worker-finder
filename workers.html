@@ -8,14 +8,16 @@
 </head>
 <body>
   <div class="container mt-4">
-    <h2 class="text-center mb-4">Available Workers</h2>
+    <h2 class="text-center mb-2">Available Workers in <span id="cityName"></span></h2>
     <input type="text" id="searchInput" class="form-control mb-4" placeholder="Search by name or skill...">
     <div id="workersList" class="row g-4"></div>
   </div>
 
   <script>
     const urlParams = new URLSearchParams(window.location.search);
-    const selectedPlace = urlParams.get('place');
+    const selectedPlace = urlParams.get('city');
+
+    document.getElementById("cityName").textContent = selectedPlace ? selectedPlace.charAt(0).toUpperCase() + selectedPlace.slice(1) : "All Cities";
 
     const allWorkers = {
       vijayawada: [

@@ -7,70 +7,131 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <div class="container">
-      <a class="navbar-brand" href="index.html">Worker Finder</a>
-    </div>
-  </nav>
-
   <div class="container mt-4">
     <h2 class="text-center mb-4">Available Workers</h2>
-
     <input type="text" id="searchInput" class="form-control mb-4" placeholder="Search by name or skill...">
-
-    <div class="row" id="workerCards">
-      <!-- Worker Card 1 -->
-      <div class="col-md-4 worker-card">
-        <div class="card">
-          <img src="assets/electrician.jpg" class="card-img-top" alt="Electrician">
-          <div class="card-body">
-            <h5 class="card-title">Ravi Kumar</h5>
-            <p class="card-text">Electrician</p>
-            <p>Experience: 5 years</p>
-            <p>Wage: ₹800/day</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Worker Card 2 -->
-      <div class="col-md-4 worker-card">
-        <div class="card">
-          <img src="assets/plumber.jpg" class="card-img-top" alt="Plumber">
-          <div class="card-body">
-            <h5 class="card-title">Sunil Verma</h5>
-            <p class="card-text">Plumber</p>
-            <p>Experience: 3 years</p>
-            <p>Wage: ₹700/day</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Worker Card 3 -->
-      <div class="col-md-4 worker-card">
-        <div class="card">
-          <img src="assets/painter.jpg" class="card-img-top" alt="Painter">
-          <div class="card-body">
-            <h5 class="card-title">Rahul Singh</h5>
-            <p class="card-text">Painter</p>
-            <p>Experience: 4 years</p>
-            <p>Wage: ₹750/day</p>
-          </div>
-        </div>
-      </div>
-    </div>
+    <div id="workersList" class="row g-4"></div>
   </div>
 
   <script>
-    const searchInput = document.getElementById('searchInput');
-    const workerCards = document.querySelectorAll('.worker-card');
+    const urlParams = new URLSearchParams(window.location.search);
+    const selectedPlace = urlParams.get('place');
 
-    searchInput.addEventListener('input', () => {
-      const filter = searchInput.value.toLowerCase();
-      workerCards.forEach(card => {
-        const text = card.innerText.toLowerCase();
-        card.style.display = text.includes(filter) ? 'block' : 'none';
+    const allWorkers = {
+      vijayawada: [
+        { name: 'Ravi Kumar', skill: 'Electrician', experience: '5 years', wage: '₹800/day', img: 'assets/electrician1.jpg' },
+        { name: 'Kiran Das', skill: 'Plumber', experience: '4 years', wage: '₹700/day', img: 'assets/plumber1.jpg' },
+        { name: 'Suresh Reddy', skill: 'Painter', experience: '3 years', wage: '₹750/day', img: 'assets/painter1.jpg' },
+        { name: 'Geeta', skill: 'Maid', experience: '2 years', wage: '₹500/day', img: 'assets/maid1.jpg' }
+      ],
+      visakhapatnam: [
+        { name: 'Anil Rao', skill: 'Electrician', experience: '6 years', wage: '₹850/day', img: 'assets/electrician2.jpg' },
+        { name: 'Mohan Reddy', skill: 'Plumber', experience: '5 years', wage: '₹720/day', img: 'assets/plumber2.jpg' },
+        { name: 'Neeraj Patnaik', skill: 'Painter', experience: '4 years', wage: '₹780/day', img: 'assets/painter2.jpg' }
+      ],
+      guntur: [
+        { name: 'Rajeev', skill: 'Electrician', experience: '4 years', wage: '₹800/day', img: 'assets/electrician3.jpg' },
+        { name: 'Shyam', skill: 'Plumber', experience: '3 years', wage: '₹690/day', img: 'assets/plumber3.jpg' },
+        { name: 'Rakesh', skill: 'Painter', experience: '4 years', wage: '₹720/day', img: 'assets/painter3.jpg' }
+      ],
+      nellore: [
+        { name: 'Manoj', skill: 'Electrician', experience: '5 years', wage: '₹820/day', img: 'assets/electrician4.jpg' },
+        { name: 'Naresh', skill: 'Plumber', experience: '2 years', wage: '₹660/day', img: 'assets/plumber4.jpg' },
+        { name: 'Chanti', skill: 'Painter', experience: '3 years', wage: '₹700/day', img: 'assets/painter4.jpg' },
+        { name: 'Meena', skill: 'Cook', experience: '6 years', wage: '₹900/day', img: 'assets/cook1.jpg' }
+      ],
+      tirupati: [
+        { name: 'Rakesh Raju', skill: 'Electrician', experience: '3 years', wage: '₹780/day', img: 'assets/electrician5.jpg' },
+        { name: 'Lokesh', skill: 'Plumber', experience: '4 years', wage: '₹710/day', img: 'assets/plumber5.jpg' },
+        { name: 'Rajitha', skill: 'Painter', experience: '5 years', wage: '₹730/day', img: 'assets/painter5.jpg' }
+      ],
+      kurnool: [
+        { name: 'Sami', skill: 'Electrician', experience: '6 years', wage: '₹840/day', img: 'assets/electrician6.jpg' },
+        { name: 'Basha', skill: 'Plumber', experience: '5 years', wage: '₹720/day', img: 'assets/plumber6.jpg' },
+        { name: 'Aravind', skill: 'Painter', experience: '3 years', wage: '₹690/day', img: 'assets/painter6.jpg' },
+        { name: 'Sita', skill: 'Tailor', experience: '7 years', wage: '₹600/day', img: 'assets/tailor1.jpg' }
+      ],
+      rajahmundry: [
+        { name: 'Praveen', skill: 'Electrician', experience: '5 years', wage: '₹820/day', img: 'assets/electrician7.jpg' },
+        { name: 'Ravi Teja', skill: 'Plumber', experience: '3 years', wage: '₹680/day', img: 'assets/plumber7.jpg' },
+        { name: 'Harsha', skill: 'Painter', experience: '6 years', wage: '₹760/day', img: 'assets/painter7.jpg' }
+      ],
+      kakinada: [
+        { name: 'Gopi', skill: 'Electrician', experience: '4 years', wage: '₹810/day', img: 'assets/electrician8.jpg' },
+        { name: 'Venu', skill: 'Plumber', experience: '5 years', wage: '₹720/day', img: 'assets/plumber8.jpg' },
+        { name: 'Sandeep', skill: 'Painter', experience: '4 years', wage: '₹740/day', img: 'assets/painter8.jpg' }
+      ],
+      anantapur: [
+        { name: 'Ramu', skill: 'Electrician', experience: '5 years', wage: '₹800/day', img: 'assets/electrician9.jpg' },
+        { name: 'Anjaneyulu', skill: 'Plumber', experience: '4 years', wage: '₹700/day', img: 'assets/plumber9.jpg' },
+        { name: 'Charan', skill: 'Painter', experience: '3 years', wage: '₹710/day', img: 'assets/painter9.jpg' }
+      ],
+      ongole: [
+        { name: 'Vamsi', skill: 'Electrician', experience: '3 years', wage: '₹790/day', img: 'assets/electrician10.jpg' },
+        { name: 'Ganesh', skill: 'Plumber', experience: '2 years', wage: '₹670/day', img: 'assets/plumber10.jpg' },
+        { name: 'Murali', skill: 'Painter', experience: '4 years', wage: '₹720/day', img: 'assets/painter10.jpg' }
+      ],
+      kadapa: [
+        { name: 'Mahesh', skill: 'Electrician', experience: '4 years', wage: '₹820/day', img: 'assets/electrician11.jpg' },
+        { name: 'Kumar', skill: 'Plumber', experience: '3 years', wage: '₹690/day', img: 'assets/plumber11.jpg' },
+        { name: 'Chandu', skill: 'Painter', experience: '5 years', wage: '₹740/day', img: 'assets/painter11.jpg' }
+      ],
+      eluru: [
+        { name: 'Teja', skill: 'Electrician', experience: '6 years', wage: '₹850/day', img: 'assets/electrician12.jpg' },
+        { name: 'Mohan', skill: 'Plumber', experience: '5 years', wage: '₹720/day', img: 'assets/plumber12.jpg' },
+        { name: 'Lalitha', skill: 'Painter', experience: '4 years', wage: '₹750/day', img: 'assets/painter12.jpg' }
+      ],
+      srikakulam: [
+        { name: 'Nani', skill: 'Electrician', experience: '5 years', wage: '₹800/day', img: 'assets/electrician13.jpg' },
+        { name: 'Raja', skill: 'Plumber', experience: '4 years', wage: '₹700/day', img: 'assets/plumber13.jpg' },
+        { name: 'Bhanu', skill: 'Painter', experience: '4 years', wage: '₹720/day', img: 'assets/painter13.jpg' }
+      ],
+      chittoor: [
+        { name: 'Prakash', skill: 'Electrician', experience: '5 years', wage: '₹810/day', img: 'assets/electrician14.jpg' },
+        { name: 'Shiva', skill: 'Plumber', experience: '3 years', wage: '₹680/day', img: 'assets/plumber14.jpg' },
+        { name: 'Sneha', skill: 'Painter', experience: '5 years', wage: '₹740/day', img: 'assets/painter14.jpg' }
+      ],
+      machilipatnam: [
+        { name: 'Vijay', skill: 'Electrician', experience: '4 years', wage: '₹800/day', img: 'assets/electrician15.jpg' },
+        { name: 'Kishore', skill: 'Plumber', experience: '5 years', wage: '₹710/day', img: 'assets/plumber15.jpg' },
+        { name: 'Ramya', skill: 'Painter', experience: '3 years', wage: '₹700/day', img: 'assets/painter15.jpg' }
+      ]
+    };
+
+    const workers = allWorkers[selectedPlace] || [];
+
+    function renderWorkers(filter = "") {
+      const list = document.getElementById("workersList");
+      list.innerHTML = "";
+
+      const filtered = workers.filter(w =>
+        w.name.toLowerCase().includes(filter) ||
+        w.skill.toLowerCase().includes(filter)
+      );
+
+      filtered.forEach(worker => {
+        const card = document.createElement("div");
+        card.className = "col-md-4";
+        card.innerHTML = `
+          <div class="card">
+            <img src="${worker.img}" class="card-img-top" alt="${worker.skill}">
+            <div class="card-body">
+              <h5 class="card-title">${worker.name}</h5>
+              <p class="card-text text-primary">${worker.skill}</p>
+              <p>Experience: ${worker.experience}</p>
+              <p>Wage: ${worker.wage}</p>
+            </div>
+          </div>
+        `;
+        list.appendChild(card);
       });
+    }
+
+    document.getElementById("searchInput").addEventListener("input", (e) => {
+      renderWorkers(e.target.value.toLowerCase());
     });
+
+    renderWorkers();
   </script>
 </body>
 </html>

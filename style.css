@@ -1,34 +1,42 @@
 body {
-  font-family: 'Segoe UI', sans-serif;
   background-color: #f8f9fa;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.hero-section {
-  background-image: url('assets/bg.jpg');
-  background-size: cover;
-  background-position: center;
-  height: 100vh;
-  padding: 20px;
-}
-
-.hero-section h1,
-.hero-section p {
-  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+h1, h2 {
+  font-weight: 600;
 }
 
 .card {
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  transition: transform 0.2s ease-in-out;
+  border-radius: 16px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .card:hover {
   transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
 }
 
-.card-title {
-  font-weight: bold;
+.card-img-top {
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  height: 220px;
+  object-fit: cover;
 }
 
-.card-text {
-  color: #007bff;
+.card-body {
+  text-align: center;
+}
+
+.btn-primary {
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-weight: 500;
+}
+
+#searchInput {
+  max-width: 400px;
+  margin: 0 auto;
+  display: block;
 }

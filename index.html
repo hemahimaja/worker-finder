@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Daily Wage Worker Finder</title>
+  <title>Daily Wage Worker Finder - AP</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -16,12 +16,42 @@
     </div>
   </nav>
 
-  <div class="hero-section d-flex align-items-center justify-content-center text-center text-white">
+  <div class="hero-section d-flex flex-column align-items-center justify-content-center text-center text-white">
     <div>
-      <h1 class="mb-4">Connecting Local Workers with You</h1>
-      <p class="lead">Find electricians, plumbers, painters, and more in your area!</p>
-      <a href="workers.html" class="btn btn-success mt-3">Start Hiring</a>
+      <h1 class="mb-4">Find Skilled Workers in Andhra Pradesh</h1>
+      <p class="lead">Select your city to get started</p>
+
+      <select id="locationSelect" class="form-select w-75 mx-auto my-4" onchange="goToWorkersPage()">
+        <option value="">-- Choose a City --</option>
+        <option value="vijayawada">Vijayawada</option>
+        <option value="visakhapatnam">Visakhapatnam</option>
+        <option value="guntur">Guntur</option>
+        <option value="nellore">Nellore</option>
+        <option value="tirupati">Tirupati</option>
+        <option value="kurnool">Kurnool</option>
+        <option value="rajahmundry">Rajahmundry</option>
+        <option value="kakinada">Kakinada</option>
+        <option value="anantapur">Anantapur</option>
+        <option value="ongole">Ongole</option>
+        <option value="kadapa">Kadapa</option>
+        <option value="eluru">Eluru</option>
+        <option value="srikakulam">Srikakulam</option>
+        <option value="chittoor">Chittoor</option>
+        <option value="machilipatnam">Machilipatnam</option>
+      </select>
+
+      <a href="workers.html" class="btn btn-success">See All Workers</a>
     </div>
   </div>
+
+  <script>
+    function goToWorkersPage() {
+      const city = document.getElementById("locationSelect").value;
+      if (city) {
+        window.location.href = `workers.html?city=${city}`;
+      }
+    }
+  </script>
 </body>
 </html>
+

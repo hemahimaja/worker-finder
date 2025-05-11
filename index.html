@@ -16,7 +16,7 @@
     </div>
   </nav>
 
-  <div class="hero-section d-flex flex-column align-items-center justify-content-center text-center text-white">
+  <div class="hero-section text-center text-white">
     <div>
       <h1 class="mb-4">Find Skilled Workers in Andhra Pradesh</h1>
       <p class="lead">Select your city to get started</p>
@@ -48,9 +48,10 @@
     function goToWorkersPage() {
       const city = document.getElementById("locationSelect").value;
       if (city) {
-        window.location.href = `workers.html?city=${city}`;
+        window.location.href = `workers.html?place=${city}`;
       }
     }
   </script>
 </body>
 </html>
+

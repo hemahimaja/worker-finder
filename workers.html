@@ -15,7 +15,8 @@
 
   <script>
     const urlParams = new URLSearchParams(window.location.search);
-    const selectedPlace = urlParams.get('city');
+    const selectedPlace = urlParams.get('place');
+
 
     document.getElementById("cityName").textContent = selectedPlace ? selectedPlace.charAt(0).toUpperCase() + selectedPlace.slice(1) : "All Cities";
 
